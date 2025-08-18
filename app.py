@@ -6,7 +6,8 @@ def exibirMenu():
         print("2 - Listar Produtos")
         print("3 - Adicionar Produto ja Cadastrado")
         print("4 - Atualizar Produto")
-        print("5 - Sair")
+        print("5 - Excluir Produto")
+        print("6 - Sair")
         opcao = int(input("Escolha uma opção: "))
         if opcao == 1:
             cadastrarProduto()
@@ -17,6 +18,8 @@ def exibirMenu():
         elif opcao == 4:
             atualizarListaDeProdutos()
         elif opcao == 5:
+            excluirProduto()
+        elif opcao == 6:
             print("Saindo...")
             break
         else:
@@ -73,12 +76,21 @@ def atualizarListaDeProdutos():
 
 def listarProdutos():
     if not listaDeProdutos:
-        print("Nenhum produto cadastrado.")
+        print(" -- Nenhum produto cadastrado.")
     else:
         print("Lista de Produtos:")
         for produto in listaDeProdutos:
             print(f" --- Nome: {produto['nome']}, Preço: R$ {produto['preco']:.2f}, Código: {listaDeProdutos.index(produto) + 1}"
                   f"\n | Quantidade: {produto.get('quantidade', 0)} |")
+            
+
+def excluirProduto():
+    codigo = int(input("Digite o código do produto que deseja excluir: ")) - 1
+    if 0 <= codigo < len(listaDeProdutos):
+        produto = listaDeProdutos.pop(codigo)
+        print(f"Produto '{produto['nome']}' excluído com sucesso!")
+    else:
+        print("Código inválido. Produto não encontrado.")
 
 
 if __name__ == "__main__":
